@@ -175,11 +175,16 @@
                             data.process().done(function (data) {
                                 data.submit().done(function(res){
                                     for(var i in res.files) {
-                                        $(e.target).after("<input type='hidden' name='files[]' value='"+res.files[i].path+"'>");
+                                        $(e.target).after("<input type='hidden' name='files[]' data-remove-url='"+res.files[i].deleteUrl+"' value='"+res.files[i].path+"'>");
                                     }
                                 });
                             });
                         }
+                    },
+                    destroyed: function (e, data) {
+                        console.log(data);
+                        console.log("input[data-remove-url='"+data.url+"']");
+                        $("input[data-remove-url='"+data.url+"']").remove();
                     }
                 });
 
